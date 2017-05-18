@@ -109,3 +109,9 @@ moduleDC_res = moduleDC(inputMat = darmanis, design = design_mat,
   labels = modMembersStep$Module, nPerm = 50, number_DC_genes = 3,
   dCorAvgMethod = "median")
 head(moduleDC_res)
+#### 
+#export to cytoscape 
+
+exportNetworkToCytoscape(adjacency, edgeFile = "edge_result.txt", 
+  nodeFile = "node_result.txt", weighted= TRUE, threshold = 0.001, 
+  nodeNames = rownames(adjacency))
