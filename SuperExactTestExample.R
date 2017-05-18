@@ -8,6 +8,6 @@ meta_list = list(testA, testB, testC)
 
 names(meta_list) = c("testA", "testB", "testC")
 
-meta_result = supertest(meta_list, n = 100) #15332
+meta_result = supertest(meta_list, n = 100) 
 
 summary(meta_result)
