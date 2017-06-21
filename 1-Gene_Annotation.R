@@ -15,9 +15,6 @@ sleepTime = 0.01
 for(i in 1:length(colTerms)){
 	for(j in 1:length(rowTerms)){
     query = paste(colTerms[i], "AND", rowTerms[j], sep = " ")
-    print(i)
-    print(j)
-    print(query)
     res = entrez_search(db="pubmed", term = query)
     disease_gene_mentions[j, i] = as.numeric(res$count)
     Sys.sleep(sleepTime)
@@ -46,10 +43,8 @@ search_year <- function(year, term){
     entrez_search(db="pubmed", term=query, retmax=0)$count
 }
 
-year = c(2000:2009, 2011:2016)
-search_term = "DNMT3 NOT "review"[Publication Type]"
-
-paste(term, "AND (", year, "[PDAT])")
+year = c(1980:2016)
+search_term = "genomics"
 
 term_results = vector()
 
