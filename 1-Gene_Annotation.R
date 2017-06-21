@@ -1,13 +1,11 @@
 
 library(rentrez)
 options(stringsAsFactors = FALSE)
-#library(bayesbio) #this is implemented as a function in library(bayesbio)
 
 #example gene set
-rowTerms = c("TP53", "TNF", "APOE", "EGFR", "ESR1", "IL6", "VEGFA",
-  "MTHFR", "TGFB1", "IL10", "ACE", "BRCA1")
+rowTerms = c("NR3C1", "SCN1A", "CAMP")
 # rowTerms = c("CDC5L", "RELN", "TUBA1A", "CDC5L", "APOE", "ESR1")
-colTerms = c("methylation", "immunity", "breast cancer", "Alzheimer")
+colTerms = c("stress response", "psoriasis", "action potential")
 
 disease_gene_mentions = data.frame(matrix(0, nrow = length(rowTerms),
    ncol = length(colTerms) + 1))
@@ -17,6 +15,9 @@ sleepTime = 0.01
 for(i in 1:length(colTerms)){
 	for(j in 1:length(rowTerms)){
     query = paste(colTerms[i], "AND", rowTerms[j], sep = " ")
+    print(i)
+    print(j)
+    print(query)
     res = entrez_search(db="pubmed", term = query)
     disease_gene_mentions[j, i] = as.numeric(res$count)
     Sys.sleep(sleepTime)
@@ -45,8 +46,21 @@ search_year <- function(year, term){
     entrez_search(db="pubmed", term=query, retmax=0)$count
 }
 
-year = 1970:2016
-search_term = "BRCA1"
+year = c(2000:2009, 2011:2016)
+search_term = "DNMT3 NOT "review"[Publication Type]"
+
+paste(term, "AND (", year, "[PDAT])")
+
+term_results = vector()
+
+for(j in 1:length(year)){
+  query = paste(term, "AND (", year, "[PDAT])")
+  res = search_year
+  res = entrez_search(db="pubmed", term = rowTerms[j])
+  term_results[j] = as.numeric(search_year(year[j], search_term))
+  Sys.sleep(sleepTime)
+}
+
 term_results = sapply(year, search_year, term=search_term, USE.NAMES=FALSE)
 paper_total = sapply(year, search_year, term="", USE.NAMES=FALSE)
 term_relative = term_results/paper_total
