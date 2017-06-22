@@ -44,7 +44,7 @@ search_year <- function(year, term){
 }
 
 year = c(1980:2016)
-search_term = "genomics"
+term = "genomics"
 
 term_results = vector()
 
