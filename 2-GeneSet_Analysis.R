@@ -19,6 +19,14 @@ modules$ind = as.character(modules$ind)
 str(modules)
 head(modules)
 
+#using your own gene list
+gene_list = read.table("/Users/amckenz/Desktop/test_genes.txt")
+module_genes = list(our_genes = gene_list$V1)
+modules = stack(module_genes)
+modules$ind = as.character(modules$ind)
+str(modules)
+head(modules)
+
 #do GO analysis using GOstats
 moduleGO_res = moduleGO(genes = modules$values, labels = modules$ind,
   universe = rownames(darmanis), pval_GO_cutoff = 1)
