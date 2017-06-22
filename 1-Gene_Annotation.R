@@ -3,9 +3,9 @@ library(rentrez)
 options(stringsAsFactors = FALSE)
 
 #example gene set
-rowTerms = c("NR3C1", "SCN1A", "CAMP")
+rowTerms = c("APOE", "VHL", "EGFR")
 # rowTerms = c("CDC5L", "RELN", "TUBA1A", "CDC5L", "APOE", "ESR1")
-colTerms = c("stress response", "psoriasis", "action potential")
+colTerms = c("cancer", "alzheimer", "multiple sclerosis")
 
 disease_gene_mentions = data.frame(matrix(0, nrow = length(rowTerms),
    ncol = length(colTerms) + 1))
@@ -44,22 +44,21 @@ search_year <- function(year, term){
 }
 
 year = c(1980:2016)
-term = "genomics"
+term = "MTOR"
 
 term_results = vector()
 
 for(j in 1:length(year)){
-  query = paste(term, "AND (", year, "[PDAT])")
-  res = search_year
-  res = entrez_search(db="pubmed", term = rowTerms[j])
-  term_results[j] = as.numeric(search_year(year[j], search_term))
+#   query = paste(term, "AND (", year, "[PDAT])")
+#   res = entrez_search(db="pubmed", term = rowTerms[j])
+  term_results[j] = as.numeric(search_year(year[j], term))
   Sys.sleep(sleepTime)
 }
 
-term_results = sapply(year, search_year, term=search_term, USE.NAMES=FALSE)
+# term_results = sapply(year, search_year, term=search_term, USE.NAMES=FALSE)
 paper_total = sapply(year, search_year, term="", USE.NAMES=FALSE)
 term_relative = term_results/paper_total
-term_relative = term_relative/sum(term_relative)
+# term_relative = term_relative/sum(term_relative)
 
 plot(year, term_relative, type='b', ylab = "Proportion of Searches",
-  main=paste0("Proportion of PubMed Searches for ", search_term))
+  main=paste0("Proportion of PubMed Searches for ", term))
