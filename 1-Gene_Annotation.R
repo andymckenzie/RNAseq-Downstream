@@ -34,6 +34,8 @@ colnames(disease_gene_mentions) = c(colTerms, "Total_Mentions")
 disease_gene_mentions = disease_gene_mentions[rev(order(disease_gene_mentions[ , length(colTerms) + 1])), ]
 # disease_gene_mentions = disease_gene_mentions[rev(order(disease_gene_mentions[ , "Alzheimer"])), ]
 
+
+
 ########
 #creating a year-by-year plot of a particular term
 
@@ -62,3 +64,7 @@ term_relative = term_results/paper_total
 
 plot(year, term_relative, type='b', ylab = "Proportion of Searches",
   main=paste0("Proportion of PubMed Searches for ", term))
+
+plot(year, term_relative, type='b', ylab = "Proportion of Searches",
+  main=paste0("Proportion of PubMed Searches for ", term), xaxt="n")
+axis(1, at = 1980:2016, las=2)
