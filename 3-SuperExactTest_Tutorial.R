@@ -99,6 +99,8 @@ cr_meta_list = list(unique(tT_6mo_sig$Gene.symbol), unique(tT_12mo_sig$Gene.symb
 names(cr_meta_list) = c("6MO_Control_vs_CR", "12MO_Control_vs_CR", "24MO_Control_vs_CR")
 cr_meta_result = supertest(cr_meta_list, n = length(unique(tT_6mo$Gene.symbol)))
 summary(cr_meta_result)
+plot(cr_meta_result)
+plot(cr_meta_result, x.pos = c(0.1, 0.9), Layout = "landscape")
 
 ##########
 # If you have time, try using GEO2R on a data set(s)/question that you are interested in!

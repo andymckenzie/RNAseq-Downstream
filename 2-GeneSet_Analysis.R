@@ -4,6 +4,7 @@ library(DGCA) #wrapper for GOstats and visualization
 library(HGNChelper)
 library(org.Hs.eg.db)
 library(ggplot2)
+library(DBI)
 options(stringsAsFactors = FALSE)
 
 #make up a list of genes

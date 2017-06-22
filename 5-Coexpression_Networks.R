@@ -87,6 +87,7 @@ library(DGCA) #wrapper for GOstats and visualization
 library(HGNChelper)
 library(org.Hs.eg.db)
 library(ggplot2)
+library(DBI)
 
 #do GO analysis using GOstats
 moduleGO_res = moduleGO(genes = modMembersStep$Gene, labels = modMembersStep$Module,
