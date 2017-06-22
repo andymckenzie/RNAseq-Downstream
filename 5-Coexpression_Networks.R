@@ -34,17 +34,17 @@ softPower = 4
 ######
 #one-step
 
-# net = blockwiseModules(gnxp, power = softPower,
-#                        TOMType = "unsigned", minModuleSize = 20,
-#                        reassignThreshold = 0, mergeCutHeight = 0.25,
-#                        numericLabels = TRUE, pamRespectsDendro = FALSE,
-#                        saveTOMs = FALSE,
-#                        saveTOMFileBase = "femaleMouseTOM",
-#                        verbose = 3)
+net = blockwiseModules(gnxp, power = softPower,
+                       TOMType = "unsigned", minModuleSize = 5,
+                       reassignThreshold = 0, mergeCutHeight = 0.25,
+                       numericLabels = TRUE, pamRespectsDendro = FALSE,
+                       saveTOMs = FALSE,
+                       saveTOMFileBase = "femaleMouseTOM",
+                       verbose = 3)
 #
-# moduleLabels = net$colors;
-# moduleColors = labels2colors(moduleLabels)
-# modMembers = data.frame(Gene = colnames(gnxp), Module = moduleColors)
+moduleLabels = net$colors;
+moduleColors = labels2colors(moduleLabels)
+modMembers = data.frame(Gene = colnames(gnxp), Module = moduleColors)
 
 #######
 # multi-step
@@ -96,7 +96,7 @@ moduleGO_df = extractModuleGO(moduleGO_res)
 str(moduleGO_df)
 
 #visualize the gene ontology categories
-plotModuleGO(moduleGO_df, nTerms = 2, text_size = 5, coord_flip = TRUE)
+plotModuleGO(moduleGO_df, nTerms = 2, text_size = 5, coord_flip = FALSE)
 
 modMembersStep[modMembersStep$Module == "yellow", ]
 
@@ -106,6 +106,8 @@ modMembersStep[modMembersStep$Module == "yellow", ]
 exportNetworkToCytoscape(adjacency, edgeFile = "edge_result.txt",
   nodeFile = "node_result.txt", weighted= TRUE, threshold = 0.1,
   nodeNames = rownames(adjacency))
+
+write.table(modMembersStep, sep = "\t", file = "module_members.txt", row.names = F, quote = F) 
 
 #########
 # Part 2: Differential Coexpression of the networks between cell types
